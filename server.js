@@ -1,86 +1,69 @@
 const express = require('express');
 const app = express();
-const port =  5100;
+const port = 5100;
 app.use(express.json());
 
-//maine chaneg kiya hai
+let userBudget = 0;  // Set user budget to 0
+let userExpense = [];  // Array to store user's expenses
 
-let userBudget = 0;  //set user budget to 0
-let userExpense = [];   //array to store user's expense
-
-
-//set your monthly budget
-app.post("/userBudget" , (req , res)=>{
-    const {budget} = req.body; //set how much will be users limit to spend
-    userBudget = budget;
-    res.send(`user bugdet is ${budget}`);
-    
-
+// Set your monthly budget
+app.post("/userBudget", (req, res) => {
+    const { budget } = req.body;
+    userBudget = Number(budget);
+    res.send(`User budget is ${budget}`);
 });
 
-
-//add your expense here
-app.post("/userExpense" , (req , res)=>{
-    const {amount , category  , description} = req.body;
+// Add your expense here
+app.post("/userExpense", (req, res) => {
+    let amount = Number(req.body.amount);  
+    const { category, description } = req.body;
     const today = new Date();
-    const date = `${today.getMonth() + 1} - ${today.getDate()} -${today.getFullYear()}`;
-    if(!amount || !category) {
-        res.send("Amount and Category is required!")
+    const date = `${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}`;
+
+    if (!amount || !category) {
+        return res.send("Amount and Category are required!");  
     }
 
-    res.send(`user has spent ${amount} on ${category} dated ${date}`);
-    userExpense.push({amount ,category , description , date});
-    
+    userExpense.push({ amount, category, description, date });
+    res.send(`User has spent ${amount} on ${category} dated ${date}`);
 });
 
-//get all summary of your expense
-app.get("/summaryExpense" , (req , res)=>{
+// Get all summary of your expenses
+app.get("/summaryExpense", (req, res) => {
     res.send(userExpense);
-})
+});
 
-
-//check your total expense
-app.get("/totalExpense" , (req , res)=>{
+// Check your total expense
+app.get("/totalExpense", (req, res) => {
     let total = 0;
     
-    for(var i = 0 ; i < userExpense.length ; i++){
-        total = total + userExpense[i].amount;
+    for (let i = 0; i < userExpense.length; i++) {
+        total += userExpense[i].amount;  
     }
 
-    res.send(`total spent of user is : ${total}`);
-
+    res.send(`Total spent by user is: ${total}`);
 });
 
-
-//filter expense from dates
-app.get("/filteredExpense" , (req,res)=>{
-    const {startDate , endDate} = req.query;
+// Filter expense from dates
+app.get("/filteredExpense", (req, res) => {
+    const { startDate, endDate } = req.query;
 
     let filteredTotal = 0;
-
     let filteredExpense = [];
 
-   
-
-    for(let i = 0 ; i < userExpense.length ; i++){
+    for (let i = 0; i < userExpense.length; i++) {
         let expenseDate = userExpense[i].date;
 
-        if(expenseDate >= startDate &&  expenseDate<=endDate){
+        if (expenseDate >= startDate && expenseDate <= endDate) {
             filteredExpense.push(userExpense[i]);
-            filteredTotal  = filteredTotal + userExpense[i].amount;
-        };
+            filteredTotal += userExpense[i].amount;  
+        }
     }
 
-
-    res.status(200).send({filteredExpense , filteredTotal});
-   
-})
-
-
-
-
-
-
-app.listen(port , ()=>{
-    console.log(`Server is running on port https://localhost:${port}`);
+    res.status(200).send({ filteredExpense, filteredTotal });
 });
+
+app.listen(port, () => {
+    console.log(`Server is running on port http://localhost:${port}`);
+});
+
