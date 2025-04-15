@@ -1,15 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Budget</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set Budget</title>
+   <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f8fb;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 450px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #004080;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: bold;
+      margin: 10px 0 5px;
+      text-align: left;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #007acc;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005a99;
+    }
+
+    .budget-display {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #006400;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-   
-<h1>Budget Set</h1>
-<p>Your monthly budget is: ₹{{budget}}</p>
 
-    
+  <h1>Set Your Budget</h1>
+
+
+  <form action="/userBudget" method="POST">
+    <label for="budget">Budget Amount:</label>
+    <input type="number" name="budget" id="budget" required>
+    <button type="submit">Set Budget</button>
+  </form>
+
+  <hr>
+  <h2>Your Current Budget: ₹{{budget}}</h2>
+
 </body>
 </html>

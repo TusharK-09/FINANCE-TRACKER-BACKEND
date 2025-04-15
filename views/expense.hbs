@@ -1,16 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Expense</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fdfdfd;
+    padding: 40px;
+  }
+
+  .container {
+    max-width: 500px;
+    margin: auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  h2 {
+    color: #007acc;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+
+  input, textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  button:hover {
+    background-color: #005b99;
+  }
+</style>
+
 </head>
 <body>
-    <h1>Expense Added</h1>
-<p>Amount: ₹{{amount}}</p>
-<p>Category: {{category}}</p>
-<p>Description: {{description}}</p>
-<p>Date: {{date}}</p>
+  <h1>Add New Expense</h1>
+
+
+{{#if successMessage}}
+  <p style="color: green;">{{successMessage}}</p>
+  <p>Amount: ₹{{amount}}</p>
+  <p>Category: {{category}}</p>
+  <p>Description: {{description}}</p>
+  <p>Date: {{date}}</p>
+{{/if}}
+
+<form action="/userExpense" method="POST">
+  <label for="amount">Amount:</label>
+  <input type="number" name="amount" id="amount" required /><br>
+
+  <label for="category">Category:</label>
+  <input type="text" name="category" id="category" required /><br>
+
+  <label for="description">Description:</label>
+  <input type="text" name="description" id="description" /><br>
+
+  <button type="submit">Add Expense</button>
+</form>
+
 
 </body>
 </html>

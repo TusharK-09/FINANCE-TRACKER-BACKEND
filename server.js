@@ -6,17 +6,30 @@ const app = express();
 const port = 5100;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
+
 
 let userBudget = 0;
 let userExpense = [];
 
+app.get("/Home", (req, res) => {
+    res.render("home");
+});
+
+app.get("/budget" , (req,res)=>{
+    res.render("budget");
+})
 // Set your monthly budget
 app.post("/userBudget", (req, res) => {
     const { budget } = req.body;
     userBudget = Number(budget);
     res.render("budget", { budget: userBudget });
+});
+
+app.get("/expense", (req, res) => {
+    res.render("expense"); // Renders a form page from views/expense.hbs
 });
 
 // Add your expense here
@@ -37,6 +50,7 @@ app.post("/userExpense", (req, res) => {
 // Summary of expenses
 app.get("/summaryExpense", (req, res) => {
     res.render("summary", { userExpense });
+    
 });
 
 // Total expenses

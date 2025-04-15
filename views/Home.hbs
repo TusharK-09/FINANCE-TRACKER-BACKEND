@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Finance Tracker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 80px auto;
+      padding: 40px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #333333;
+      margin-bottom: 30px;
+    }
+
+    nav {
+      margin-top: 20px;
+    }
+
+    nav a {
+      display: inline-block;
+      margin: 10px 15px;
+      padding: 12px 20px;
+      color: white;
+      background-color: #007bff;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      background-color: #0056b3;
+    }
+
+    hr {
+      margin: 30px 0;
+      border: none;
+      height: 1px;
+      background-color: #ddd;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Welcome to Your Finance Tracker</h1>
+
+  <nav>
+   
+    <a href="/budget">Set Budget</a> |
+    <a href="/expense">Add Expense</a> |
+    <a href="/summaryExpense">View Summary</a> |
+    <a href="/totalExpense">View Total</a> |
+    <a href="/filteredExpense">Filter Expenses</a>
+  </nav>
+
+  <hr>
+
+  <!-- Content will be injected here based on the selected route -->
+
+</body>
+</html>
