@@ -8,7 +8,6 @@ const port = 5100;
 app.use(express.json());
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.static("public"));
 
 let userBudget = 0;
 let userExpense = [];
