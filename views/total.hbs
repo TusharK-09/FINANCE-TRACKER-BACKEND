@@ -1,36 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Total Expenses</title>
-    <style>
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #eef2f7;
-    text-align: center;
-    padding: 50px;
-  }
-
-  h2 {
-    color: #004080;
-  }
-
-  .total-box {
-    background-color: white;
-    display: inline-block;
-    padding: 20px 40px;
-    border-radius: 10px;
-    font-size: 24px;
-    margin-top: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Total Expenses</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #444;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+      margin: 0 5px;
+      border-radius: 3px;
+    }
+    nav a:hover {
+      background-color: #555;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    h1, h2 {
+      color: #333;
+      margin-top: 0;
+    }
+    .total-amount {
+      font-size: 42px;
+      font-weight: bold;
+      color: #333;
+      margin: 30px 0;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 10px 5px;
+      text-decoration: none;
+      border-radius: 3px;
+    }
+    .btn:hover {
+      background-color: #555;
+    }
+    .btn-group {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <h1>Total Expenses</h1>
-<p>Total spent by user is: ₹{{total}}</p>
+  <header>
+    <h1 style="color: white;">Budget Tracker</h1>
+  </header>
 
+  <nav>
+    <a href="/Home">Home</a>
+    <a href="/budget">Set Budget</a>
+    <a href="/expense">Add Expense</a>
+    <a href="/summaryExpense">Summary</a>
+    <a href="/totalExpense">Total</a>
+    <a href="/filteredExpense">Filter</a>
+  </nav>
+
+  <div class="container">
+    <div class="card">
+      <h2>Total Expenses</h2>
+      
+      <div class="total-amount">
+        ₹{{total}}
+      </div>
+      
+      <p>This is the sum of all your recorded expenses.</p>
+      
+      <div class="btn-group">
+        <a href="/expense" class="btn">Add New Expense</a>
+        <a href="/summaryExpense" class="btn">View All Expenses</a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

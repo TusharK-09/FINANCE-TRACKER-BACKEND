@@ -4,81 +4,125 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Set Budget</title>
-   <style>
+  <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f8fb;
-      padding: 40px;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 1rem;
       text-align: center;
     }
-
-    .container {
-      max-width: 450px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    nav {
+      background-color: #444;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
     }
-
-    h2 {
-      color: #004080;
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+      margin: 0 5px;
+      border-radius: 3px;
+    }
+    nav a:hover {
+      background-color: #555;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-top: 20px;
+    }
+    h1, h2 {
+      color: #333;
+      margin-top: 0;
+    }
+    form {
+      margin-top: 20px;
+    }
+    .form-group {
       margin-bottom: 20px;
     }
-
-    form {
-      display: flex;
-      flex-direction: column;
-    }
-
     label {
+      display: block;
+      margin-bottom: 5px;
       font-weight: bold;
-      margin: 10px 0 5px;
-      text-align: left;
     }
-
     input[type="number"] {
+      width: 100%;
       padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
     }
-
     button {
-      margin-top: 20px;
-      padding: 12px;
-      background-color: #007acc;
-      color: white;
-      font-weight: bold;
+      background-color: #333;
+      color: #fff;
       border: none;
-      border-radius: 6px;
+      padding: 10px 20px;
+      border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
     }
-
     button:hover {
-      background-color: #005a99;
+      background-color: #555;
     }
-
-    .budget-display {
+    .current-budget {
       margin-top: 20px;
-      font-size: 20px;
-      color: #006400;
-      font-weight: bold;
+      padding: 15px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 18px;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1  style="color: white;">Budget Tracker</h1>
+  </header>
 
-  <h1>Set Your Budget</h1>
+  <nav>
+    <a href="/Home">Home</a>
+    <a href="/budget">Set Budget</a>
+    <a href="/expense">Add Expense</a>
+    <a href="/summaryExpense">Summary</a>
+    <a href="/totalExpense">Total</a>
+    <a href="/filteredExpense">Filter</a>
+  </nav>
 
+  <div class="container">
+    <div class="card">
+      <h2>Set Your Monthly Budget</h2>
+      <p>Enter the amount you want to allocate for your monthly expenses.</p>
+      
+      <form action="/userBudget" method="POST">
+        <div class="form-group">
+          <label for="budget">Budget Amount (₹):</label>
+          <input type="number" id="budget" name="budget" value="{{budget}}" placeholder="Enter your budget amount" required>
+        </div>
+        <button type="submit">Save Budget</button>
+      </form>
 
-  <form action="/userBudget" method="POST">
-    <label for="budget">Budget Amount:</label>
-    <input type="number" name="budget" id="budget" required>
-    <button type="submit">Set Budget</button>
-  </form>
-
-  <hr>
-  <h2>Your Current Budget: ₹{{budget}}</h2>
-
+      {{#if budget}}
+        <div class="current-budget">
+          Your current budget is: ₹{{budget}}
+        </div>
+      {{/if}}
+    </div>
+  </div>
 </body>
 </html>

@@ -2,75 +2,164 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Finance Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Tracker</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f4f8;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
       margin: 0;
       padding: 0;
+      background-color: #f4f4f4;
     }
-
     .container {
-      max-width: 700px;
-      margin: 80px auto;
-      padding: 40px;
-      background-color: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 1rem;
       text-align: center;
     }
-
-    h1 {
-      color: #333333;
-      margin-bottom: 30px;
-    }
-
     nav {
+      background-color: #444;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+      margin: 0 5px;
+      border-radius: 3px;
+    }
+    nav a:hover {
+      background-color: #555;
+    }
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
       margin-top: 20px;
     }
-
-    nav a {
+    .card {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      flex: 1;
+      min-width: 300px;
+    }
+    h1, h2 {
+      color: #333;
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .btn {
       display: inline-block;
-      margin: 10px 15px;
-      padding: 12px 20px;
-      color: white;
-      background-color: #007bff;
+      background-color: #333;
+      color: #fff;
+      padding: 8px 15px;
       text-decoration: none;
-      border-radius: 8px;
-      transition: background-color 0.3s ease;
-      font-weight: 500;
+      border-radius: 3px;
+      margin-top: 10px;
     }
-
-    nav a:hover {
-      background-color: #0056b3;
+    .btn:hover {
+      background-color: #555;
     }
-
-    hr {
-      margin: 30px 0;
-      border: none;
-      height: 1px;
-      background-color: #ddd;
+    .budget-info {
+      display: flex;
+      justify-content: space-between;
+      background-color: #f2f2f2;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .budget-item {
+      text-align: center;
+    }
+    .budget-item .value {
+      font-size: 24px;
+      font-weight: bold;
     }
   </style>
 </head>
-
 <body>
-
-  <h1>Welcome to Your Finance Tracker</h1>
+  <header>
+    <h1  style="color: white;">Budget Tracker Dashboard</h1>
+  </header>
 
   <nav>
-   
-    <a href="/budget">Set Budget</a> |
-    <a href="/expense">Add Expense</a> |
-    <a href="/summaryExpense">View Summary</a> |
-    <a href="/totalExpense">View Total</a> |
-    <a href="/filteredExpense">Filter Expenses</a>
+    <a href="/Home">Home</a>
+    <a href="/budget">Set Budget</a>
+    <a href="/expense">Add Expense</a>
+    <a href="/summaryExpense">Summary</a>
+    <a href="/totalExpense">Total</a>
+    <a href="/filteredExpense">Filter</a>
   </nav>
 
-  <hr>
+  <div class="container">
+    <div class="budget-info">
+      <div class="budget-item">
+        <div>Budget</div>
+        <div class="value">{{#if budget}}₹{{budget}}{{else}}₹0{{/if}}</div>
+      </div>
+      <div class="budget-item">
+        <div>Expenses</div>
+        <div class="value">₹{{total}}</div>
+      </div>
+      <div class="budget-item">
+        <div>Remaining</div>
+        <div class="value">₹{{subtract budget total}}</div>
+      </div>
+    </div>
 
-  <!-- Content will be injected here based on the selected route -->
+    <div class="dashboard">
+      <div class="card">
+        <h2>Quick Actions</h2>
+        <p>What would you like to do today?</p>
+        <a href="/budget" class="btn">Set Budget</a>
+        <a href="/expense" class="btn">Add Expense</a>
+        <a href="/summaryExpense" class="btn">View Summary</a>
+      </div>
 
+      <div class="card">
+        <h2>Recent Expenses</h2>
+        {{#if expenses.length}}
+          <table>
+            <tr>
+              <th>Date</th>
+              <th>Category</th>
+              <th>Amount</th>
+            </tr>
+            {{#each expenses}}
+              <tr>
+                <td>{{this.date}}</td>
+                <td>{{this.category}}</td>
+                <td>₹{{this.amount}}</td>
+              </tr>
+            {{/each}}
+          </table>
+        {{else}}
+          <p>No expenses recorded yet.</p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
 </body>
 </html>

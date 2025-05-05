@@ -3,87 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Add Expense</title>
   <style>
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #fdfdfd;
-    padding: 40px;
-  }
-
-  .container {
-    max-width: 500px;
-    margin: auto;
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-
-  h2 {
-    color: #007acc;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  label {
-    margin: 10px 0 5px;
-    font-weight: bold;
-  }
-
-  input, textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-  }
-
-  button {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #007acc;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  button:hover {
-    background-color: #005b99;
-  }
-</style>
-
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #444;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+      margin: 0 5px;
+      border-radius: 3px;
+    }
+    nav a:hover {
+      background-color: #555;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-top: 20px;
+    }
+    h1, h2 {
+      color: #333;
+      margin-top: 0;
+    }
+    form {
+      margin-top: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #555;
+    }
+    .expense-added {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #dff0d8;
+      border-radius: 5px;
+      text-align: center;
+      color: #3c763d;
+    }
+  </style>
 </head>
 <body>
-  <h1>Add New Expense</h1>
+  <header>
+    <h1 style="color: white;">Budget Tracker</h1>
+  </header>
 
+  <nav>
+    <a href="/Home">Home</a>
+    <a href="/budget">Set Budget</a>
+    <a href="/expense">Add Expense</a>
+    <a href="/summaryExpense">Summary</a>
+    <a href="/totalExpense">Total</a>
+    <a href="/filteredExpense">Filter</a>
+  </nav>
 
-{{#if successMessage}}
-  <p style="color: green;">{{successMessage}}</p>
-  <p>Amount: ₹{{amount}}</p>
-  <p>Category: {{category}}</p>
-  <p>Description: {{description}}</p>
-  <p>Date: {{date}}</p>
-{{/if}}
+  <div class="container">
+    <div class="card">
+      <h2>Add New Expense</h2>
+      <p>Record your expense by filling out the form below.</p>
+      
+      <form action="/userExpense" method="POST">
+        <div class="form-group">
+          <label for="amount">Amount (₹):</label>
+          <input type="number" id="amount" name="amount" step="0.01" placeholder="Enter expense amount" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select id="category" name="category" required>
+            <option value="">Select a category</option>
+            <option value="Food">Food</option>
+            <option value="Housing">Housing</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Education">Education</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Description (optional):</label>
+          <input type="text" id="description" name="description" placeholder="Brief description of the expense">
+        </div>
+        
+        <button type="submit">Add Expense</button>
+      </form>
 
-<form action="/userExpense" method="POST">
-  <label for="amount">Amount:</label>
-  <input type="number" name="amount" id="amount" required /><br>
-
-  <label for="category">Category:</label>
-  <input type="text" name="category" id="category" required /><br>
-
-  <label for="description">Description:</label>
-  <input type="text" name="description" id="description" /><br>
-
-  <button type="submit">Add Expense</button>
-</form>
-
-
+      {{#if amount}}
+        <div class="expense-added">
+          Expense of ₹{{amount}} for {{category}} has been added!
+        </div>
+      {{/if}}
+    </div>
+  </div>
 </body>
 </html>
